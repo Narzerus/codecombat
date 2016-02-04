@@ -498,14 +498,16 @@ LevelHandler = class LevelHandler extends Handler
     if since
       query['state.topScores.date'] = $gt: since.toISOString()
 
+    limit = req.query.limit || 20
+    order = req.query.order || -1
     sort =
-      'state.topScores.score': -1
+      'state.topScores.score': order
 
     select = ['state.topScores', 'creatorName', 'creator', 'codeLanguage', 'heroConfig']
 
     query = Session
       .find(query)
-      .limit(20)
+      .limit(limit)
       .sort(sort)
       .select(select.join ' ')
 

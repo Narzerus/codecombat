@@ -499,11 +499,15 @@ LevelHandler = class LevelHandler extends Handler
       query['state.topScores.date'] = $gt: since.toISOString()
 
     limit = req.query.limit || 20
-    order = req.query.order || -1
+    order = parseInt(req.query.order, 10) || -1
+    scoreOffset = parseFloat req.query.scoreOffset, 10
     sort =
       'state.topScores.score': order
-
     select = ['state.topScores', 'creatorName', 'creator', 'codeLanguage', 'heroConfig']
+
+    if scoreOffset
+      query['state.topScores.score'] = {}
+      query['state.topScores.score'][if order is 1 then '$gt' else '$lte'] = scoreOffset
 
     query = Session
       .find(query)

@@ -39,7 +39,7 @@ class LeaderboardData extends CocoClass
           scoreOffSet: myTopScore.score
           order: 1
 
-      # TODO: These can eb set pre-fetch as the object is updated on sync
+      # TODO: These can be set pre-fetch as the object is updated on sync
       gettingAboveScores.then =>
         @aboveScores = belowScores
       gettingBelowScores.then =>
